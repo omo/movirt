@@ -1,0 +1,25 @@
+
+<%
+ARITIES = 10
+ %>
+
+#include <movirt/types.hpp>
+
+MVT_NAMESPACE_BEGIN
+
+template< typename T >
+struct mem_fn_traits_t {};
+
+<% ARITIES.times do |arity| %>
+template< typename R, typename T <%= 0 < arity ? "," : "" %>
+          <%= (1 .. arity).map {|i| "typename A#{i}" }.join(", ") %> >
+struct mem_fn_traits_t<R (T::*)(<%= (1 .. arity).map {|i| "A#{i}" }.join(", ") %>)>
+{
+  enum { arity = <%= arity %> };
+  typedef R fn_type;
+  typedef T receiver_type;
+<% (1 .. arity).map {|i| %>  typedef A<%= i %> arg<%= i %>_type; 
+<% } %>};
+<% end %>
+
+MVT_NAMESPACE_END

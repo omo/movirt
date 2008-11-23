@@ -1,0 +1,42 @@
+
+* TODO
+
+- make mocky expection APIs 
+- handle type-info access (dyncast, typeid)
+- allow temporal original access
+- detect unexpected replacing (with overwrite check)
+- allow replacing dtor -> hard. pending...
+- allow instance deletion during testing.
+  -> it is not possible if dtor is not virtual...
+. add mem_fn replacer : no usecase
+
+----
++ rerg code into favta/*.hpp-s
++ generate mem_fn_traits.hpp
++ make unit_t large enough (to hold mutilple vptr)
++ get shift
++ introduce vtable_pair_t
++ allocate fake vtable on demand
++ fake object lazily (on requesting ptr())
++ dispose vtable pair on dtor
+----
++ introduce vtable_t
++ replace fake/real pair
++ replace bulk vtable
+. make replacers type-safe : no good idea..
+. print alert when  un-replace fakes. : ???
++ allow recovering original memfn inside fake
++ guard non-virtual function
++ allow multiple inheritance
++ allow virtual inheritance
+. handle POD return value
++ handle return value with ctor/dtor
++ handle arguments with ctor/dtor
++ allow access to the receiver (via vtable?)
+
+---
++ rename 
+  index  : for type
+  offset : for byte
++ move some code to bulk_t
+
