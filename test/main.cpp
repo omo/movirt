@@ -424,6 +424,33 @@ void test_faker_should_be_available_from_self()
   assert(expected == actual);
 }
 
+int test_mocker_sadbox()
+{
+#if 0
+  mvt::mocker_t<Foo> mocker;
+
+  mocker.expect(&Foo::bar).with(arg1, arg2, arg3).times(2).returns(10);
+
+  //
+  expectation_t* e = mocker.expectation_for(&Foo::bar); // return mono_expectatin_t
+  matcher_t<...&Foo::bar...>* m = new value_matcher<...>();
+  ...
+  e->set_matcher(m);
+  e->set_returner(new value_returner<int>(10));
+  e->set_count(2);
+
+  // trivial code following 
+  Foo* foo = mocker.ptr();
+  run_sequence(foo);
+  
+  assert(mocker.ok());
+  
+  std::for_each(mocker.errors().begin(),
+				mocker.errors().end(),
+				print);
+#endif
+}
+
 int main(int argc, char* argv[])
 {
 	test_hello();
